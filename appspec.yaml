@@ -1,0 +1,26 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/ubuntu/public_html/frontend/current
+permissions:
+  - object: /home/ubuntu/public_html/frontend/current
+    pattern: "**"
+    owner: ubuntu
+    group: ubuntu
+    mode: 775
+    type:
+      - file
+      - directory
+hooks:
+  BeforeInstall:
+    - location: deployment_script/BeforeInstall.sh
+      runas: ubuntu
+  AfterInstall:
+    - location: deployment_script/AfterInstall.sh
+      timeout: 1800
+      runas: ubuntu
+  ApplicationStart:
+    - location: deployment_script/ApplicationStart.sh
+      timeout: 180
+      runas: ubuntu
